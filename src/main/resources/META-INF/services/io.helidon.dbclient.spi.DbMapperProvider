@@ -1,0 +1,9 @@
+no.entra.entraos.api.mapper.ContractCategoryMapperProvider
+no.entra.entraos.api.mapper.ContractTypeMapperProvider
+no.entra.entraos.api.mapper.TemplateMapperProvider
+no.entra.entraos.api.mapper.ContractPropertyMapperProvider
+no.entra.entraos.api.mapper.UserRoleMapperProvider
+no.entra.entraos.api.mapper.CompanyContractMapperProvider
+no.entra.entraos.api.mapper.PersonContractMapperProvider
+no.entra.entraos.api.mapper.CompanyMapperProvider
+no.entra.entraos.api.mapper.PersonConmpanyMapperProvider

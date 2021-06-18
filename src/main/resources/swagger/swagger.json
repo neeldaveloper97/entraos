@@ -1,0 +1,1820 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Contract Admin API",
+    "version": "1.0.0",
+    "title": "Contract Admin API",
+    "termsOfService": "",
+    "contact": {
+      "email": "misterhuydo@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "contract-devtest.entraos.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "template",
+      "description": "The templates made for creating contracts",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "company",
+      "description": "Operations about companies",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "contract category",
+      "description": "Operations about contract categories",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "contract property",
+      "description": "Operations about contract properties",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "contract type",
+      "description": "Operations about contract types",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "person-company",
+      "description": "Operations about person-company relationship.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "person-contract",
+      "description": "Operations about person-contract relationship.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "contract",
+      "description": "Operations about contracts (company-contract relationship).",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    },
+    {
+      "name": "user role",
+      "description": "Access user role mapping.",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://contract-devtest.entraos.io/welcome"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/api/user_role": {
+      "get": {
+        "tags": [
+          "user role"
+        ],
+        "summary": "Get current user context",
+        "description": "Returns a current user context",
+        "operationId": "getUserRole",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [ 
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserRole"
+            }
+          },
+          "500": {
+            "description": "No userrole found. Make sure you have a bearer accesstoken in the authorization header."
+          }
+        }
+      } 
+    },
+    "/api/template": {
+      "get": {
+        "tags": [
+          "template"
+        ],
+        "summary": "Returns all templates",
+        "description": "Returns all templates",
+        "operationId": "getTemplateList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Template"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "template"
+        ],
+        "summary": "Add a new template to the store",
+        "description": "",
+        "operationId": "createTemplate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Template object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Template"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/template/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for template"
+          }
+        }
+      }
+    },
+    "/api/template/{id}": {
+      "get": {
+        "tags": [
+          "template"
+        ],
+        "summary": "Find template by ID",
+        "description": "Returns a single template",
+        "operationId": "getTemplateById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of template to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Template"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "template"
+        ],
+        "summary": "Updates a template in the store",
+        "description": "",
+        "operationId": "updateTemplate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of template that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Template object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Template"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for template"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "template"
+        ],
+        "summary": "Deletes a template",
+        "description": "",
+        "operationId": "deleteTemplateById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Template id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/company": {
+      "get": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Returns all companies",
+        "description": "Returns all companies",
+        "operationId": "getCompanyList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Company"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Add a new company to the store",
+        "description": "",
+        "operationId": "createCompany",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Company object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/company/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for company"
+          }
+        }
+      }
+    },
+    "/api/company/{id}": {
+      "get": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Find company by ID",
+        "description": "Returns a single company",
+        "operationId": "getCompanyById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of company to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Updates a company in the store",
+        "description": "",
+        "operationId": "updateCompany",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of company that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Company object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Company"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for company"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Deletes a company",
+        "description": "",
+        "operationId": "deleteCompanyById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Company id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/contract_category": {
+      "get": {
+        "tags": [
+          "contract category"
+        ],
+        "summary": "Returns all categories",
+        "description": "Returns all categories",
+        "operationId": "getContractCategoryList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContractCategory"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contract category"
+        ],
+        "summary": "Add a new category to the store",
+        "description": "",
+        "operationId": "createContractCategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Category object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractCategory"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/contract_category/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract category"
+          }
+        }
+      }
+    },
+    "/api/contract_category/{id}": {
+      "get": {
+        "tags": [
+          "contract category"
+        ],
+        "summary": "Find a category by ID",
+        "description": "Returns a single category",
+        "operationId": "getContractCategoryById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of category to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ContractCategory"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contract category"
+        ],
+        "summary": "Updates a category in the store",
+        "description": "",
+        "operationId": "updateContractCategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of category that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Category object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractCategory"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract category"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contract category"
+        ],
+        "summary": "Deletes a category",
+        "description": "",
+        "operationId": "deleteContractCategoryById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Category id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/contract_property": {
+      "get": {
+        "tags": [
+          "contract property"
+        ],
+        "summary": "Returns all contract properties",
+        "description": "Returns all contract properties",
+        "operationId": "getContractPropertyList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContractProperty"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contract property"
+        ],
+        "summary": "Add a new contract property to the store",
+        "description": "",
+        "operationId": "createContractProperty",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contract property object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractProperty"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/contract_property/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract property"
+          }
+        }
+      }
+    },
+    "/api/contract_property/{id}": {
+      "get": {
+        "tags": [
+          "contract property"
+        ],
+        "summary": "Find a contract property by ID",
+        "description": "Returns a single contract property",
+        "operationId": "getContractPropertyById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract property to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ContractProperty"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contract property"
+        ],
+        "summary": "Updates a contract property in the store",
+        "description": "",
+        "operationId": "updateContractProperty",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract property that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contract property object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractProperty"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract category"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contract property"
+        ],
+        "summary": "Deletes a contract property",
+        "description": "",
+        "operationId": "deleteContractPropertyById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Contract property id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/contract_type": {
+      "get": {
+        "tags": [
+          "contract type"
+        ],
+        "summary": "Returns all contract types",
+        "description": "Returns all contract types",
+        "operationId": "getContractTypeList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContractType"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contract type"
+        ],
+        "summary": "Add a new contract type to the store",
+        "description": "",
+        "operationId": "createContractType",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contract type object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractType"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/contract_type/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract type"
+          }
+        }
+      }
+    },
+    "/api/contract_type/{id}": {
+      "get": {
+        "tags": [
+          "contract type"
+        ],
+        "summary": "Find a contract type by ID",
+        "description": "Returns a single contract type",
+        "operationId": "getContractTypeById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract type to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ContractType"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contract type"
+        ],
+        "summary": "Updates a contract type in the store",
+        "description": "",
+        "operationId": "updateContractType",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract type that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contract type object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractType"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract type"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contract type"
+        ],
+        "summary": "Deletes a contract type",
+        "description": "",
+        "operationId": "deleteContractTypeById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Contract type id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+
+    "/api/contract": {
+      "get": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Returns all contracts",
+        "description": "Returns all contracts",
+        "operationId": "getContractList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CompanyContract"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Add a new contract to the store",
+        "description": "",
+        "operationId": "createContract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contract object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CompanyContract"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/contract/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract"
+          }
+        }
+      }
+    },
+    "/api/contract/{id}": {
+      "get": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Find a contract by ID",
+        "description": "Returns a single contract",
+        "operationId": "getContractById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CompanyContract"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Updates a contract in the store",
+        "description": "",
+        "operationId": "updateContract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contract object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CompanyContract"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Deletes a contract",
+        "description": "",
+        "operationId": "deleteContractById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Contract id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/contract/company/{company_id}": {
+      "get": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Returns all contracts of a company",
+        "description": "Returns all contracts of a company",
+        "operationId": "getContractListByCompanyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "description": "ID of a company",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CompanyContract"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contract/status/{id}/{status}": {
+      "post": {
+        "tags": [
+          "contract"
+        ],
+        "summary": "Updates a contract status",
+        "description": "",
+        "operationId": "updateContractStatus",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of contract that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "status",
+            "in": "path",
+            "description": "status",
+            "required": true,
+            "type": "string",
+            "format": "string",
+            "enum": ["Activated", "Pending_For_Confirmation", "Inactivated"]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for contract"
+          }
+        }
+      }
+    },
+    "/api/person_contract": {
+      "get": {
+        "tags": [
+          "person-contract"
+        ],
+        "summary": "Returns all person-contract mapping list",
+        "description": "Returns all person-contract mapping list",
+        "operationId": "getPersonContractList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonContract"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "person-contract"
+        ],
+        "summary": "Assign a contract to a person and save to the store",
+        "description": "",
+        "operationId": "createPersonContract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Person contract object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonContract"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "LOCATION": {
+                "type": "string",
+                "format": "string",
+                "description": "/api/person_contract/{new id}"
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to save to DB"
+          },
+          "400": {
+            "description": "Cannot parse the request content for person contract"
+          }
+        }
+      }
+    },
+    "/api/person_contract/{id}": {
+      "get": {
+        "tags": [
+          "person-contract"
+        ],
+        "summary": "Find a person-contract mapping by ID",
+        "description": "Returns a single person-contract mapping",
+        "operationId": "getPersonContractById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of a person-contract mapping to return",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PersonContract"
+            }
+          },
+          "400": {
+            "description": "Id not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "person-contract"
+        ],
+        "summary": "Updates a person-contract mapping record in the store",
+        "description": "",
+        "operationId": "updatePersonContract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of a person-contract mapping record that needs to be updated",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "A person-contract mapping object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonContract"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Cannot parse the request content for person contract"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "person-contract"
+        ],
+        "summary": "Deletes a person-contract mapping",
+        "description": "",
+        "operationId": "deletePersonContractById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "A person-contract mapping id to delete",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/api/person_contract/company/{company_id}": {
+      "get": {
+        "tags": [
+          "person-contract"
+        ],
+        "summary": "Returns all person contracts of a company",
+        "description": "Returns all person contracts of a company",
+        "operationId": "getPersonContractListByCompany",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "description": "ID of a company",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonContract"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/person_company": {
+      "get": {
+        "tags": [
+          "person-company"
+        ],
+        "summary": "Returns all person-company mapping list",
+        "description": "Returns all person-company mapping list",
+        "operationId": "getPersonCompanyList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonCompany"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/person_company/{company_id}": {
+      "get": {
+        "tags": [
+          "person-company"
+        ],
+        "summary": "Returns all person-company mapping list",
+        "description": "Returns all person-company mapping list",
+        "operationId": "getPersonCompanyListByCompanyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "description": "ID of a company",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonCompany"
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+
+  },
+  "definitions": {
+    "Template": {
+      "type": "object",
+      "required": [
+        "contract_name",
+        "contract_category_id",
+        "contract_type_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "contract_category_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "contract_type_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "description": {
+          "type": "string",
+          "example": "some description"
+        },
+        "contract_properties": {
+          "type": "array",        
+          "items": {
+            "$ref": "#/definitions/ContractProperty"
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+
+    "ContractProperty": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "example": "tennant_locations"
+        },
+        "value": {
+          "type": "string",
+          "example": "some location"
+        },
+        "description": {
+          "type": "string",
+          "example": "some description"
+        }
+      }
+    },
+
+    "ContractCategory": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "example": "tennant_locations"
+        },
+        "description": {
+          "type": "string",
+          "example": "some description"
+        }
+      }
+    },
+
+    "ContractType": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "example": "tennant_locations"
+        },
+        "description": {
+          "type": "string",
+          "example": "some description"
+        }
+      }
+    },
+
+    "Company": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "example": "Rebel"
+        },
+        "org_number": {
+          "type": "string",
+          "example": "99999999"
+        }
+      }
+    },
+
+    "UserRole": {
+      "type": "object",
+      "required": [
+        "id",
+        "roles",
+        "company_ids",
+        "username"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "roles": {
+          "type": "array",
+          "example": "['SUPERADMIN', 'COMPANYADMIN']"
+        },
+        "company_ids": {
+          "type": "array",
+          "example": "['d8572402-bbb5-11eb-8529-0242ac130003', 'd85727b8-bbb5-11eb-8529-0242ac130003']"
+        },
+        "username": {
+          "type": "string",
+          "example": "peter"
+        },
+        "last_synced": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+
+
+    "PersonContract": {
+      "type": "object",
+      "required": [
+        "id",
+        "person_ref",
+        "contract_id",
+        "company_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },     
+        "person_ref": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "contract_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "company_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+
+    "PersonCompany": {
+      "type": "object",
+      "required": [
+        "id",
+        "company_id",
+        "person_ref",
+        "person"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },     
+        "person_ref": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "company_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "person": {
+          "type": "object"
+        }
+      }
+    },
+
+    "CompanyContract": {
+      "type": "object",
+      "required": [
+        "contract_name",
+        "company_id",
+        "contract_category_id",
+        "contract_type_id",
+        "contract_properties"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "company_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "contract_category_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "contract_type_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "description": {
+          "type": "string",
+          "example": "some description"
+        },
+        "contract_properties": {
+          "type": "array",        
+          "items": {
+            "$ref": "#/definitions/ContractProperty"
+          }
+        },
+        "valid_from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "valid_to": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "syncing status",
+          "enum": [
+            "Activated",
+            "Pending_For_Confirmation",
+            "Inactivated"
+          ]
+        }
+
+      }
+    },
+    
+    "AppException": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

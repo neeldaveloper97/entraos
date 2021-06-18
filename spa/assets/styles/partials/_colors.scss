@@ -1,0 +1,75 @@
+@import '../variables/_variables.scss';
+@import '../_mixins.scss';
+.color--light-accent {
+  color: $color--light-accent!important;
+}
+.bg-color--light-accent{
+  background: $color--light-accent;
+}
+.border-color--light-accent{
+  border-color:$color--light-accent!important;
+}
+.color--main-brand {
+  color:  $color--main-brand!important;
+}
+.bg-color--main-brand {
+  background: $color--main-brand;
+}
+.border-color--main-brand {
+  border-color: $color--main-brand!important;
+}
+
+.color--dark-accent {
+  color:$color--dark-accent;
+}
+
+.color--white{
+  color:white!important;
+}
+.bg-color--white {
+  background: white;
+}
+.border-color--white {
+  border-color: white!important;
+}
+.color--dark-shades{
+  color: $color--dark-shade!important;
+}
+.bg-color--dark-shades{
+  background: $color--dark-shade;
+}
+.border-color--dark-shades {
+  border-color: $color--dark-shade!important;
+}
+
+.color--notification {
+  color:$color--notification!important;
+}
+
+.color--yellow {
+  color:$color--yellow!important;
+}
+.bg-color--notification {
+  background: $color--notification;
+}
+.border-color--notification {
+  border-color:$color--notification!important;
+}
+
+.color--low-emphasis{
+  color:$color--low-emphasis;
+}
+
+
+.color--medium-emphasis{
+  color:$color--medium-emphasis!important;
+}
+.border-color--medium-emphasis{
+  border-color: $color--medium-emphasis;
+}
+.color--high-emphasis{
+  color:$color--high-emphasis!important;
+}
+.bg-color--high-emphasis {
+  background: $color--high-emphasis!important;
+}

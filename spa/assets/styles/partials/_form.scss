@@ -1,0 +1,10 @@
+.form--title-big {
+  @include font-title--big;
+  padding-bottom: 1rem;
+}
+.underline{
+  border-bottom: 1px solid $color--line;
+}
+.upperline{
+  border-top: 1px solid $color--line;
+}

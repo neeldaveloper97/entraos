@@ -1,0 +1,58 @@
+@import "variables/_variables.scss";
+@import "_mixins.scss";
+@import "partials/_fonts.scss";
+@import "partials/_grid.scss";
+@import "partials/_text.scss";
+@import "partials/_colors.scss";
+@import "partials/_table.scss";
+@import "~bulma";
+@import "partials/_form.scss";
+@import "partials/_layout.scss";
+@import "partials/transitions.scss";
+@import "partials/label.scss";
+@import "plugins/datepicker";
+@import "partials/_image.scss";
+
+$primary: $color--dark-shade;
+$link: $color--main-brand;
+$warning: $color--notification;
+$info: $color--light-blue;
+$family-primary: $primary-font-family;
+$section-padding: 1.5rem 1rem;
+$is-success: $color--light-accent;
+
+//tabs
+$tabs-border-bottom-width: 3px;
+$tabs-link-active-border-bottom-color: $color--main-brand;
+$tabs-link-active-color: $color--main-brand;
+$tabs-border-bottom-color: white;
+
+//nav
+$navbar-height: 3rem;
+
+.tabs {
+  margin-bottom: 0 !important;
+}
+button {
+  background: none;
+  padding: 0;
+  border: none;
+}
+@import "~bulma";
+input {
+  color: $color--high-emphasis;
+}
+
+html {
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.2;
+}

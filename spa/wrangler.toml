@@ -1,0 +1,10 @@
+name = "spa"
+type = "webpack"
+account_id = "64b238a07f7de0cb4d63c166ba4ff09c"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = "dist"
+entry-point = "workers-site"

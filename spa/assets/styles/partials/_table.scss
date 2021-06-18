@@ -1,0 +1,13 @@
+@import '../variables/_variables.scss';
+@import '../_mixins.scss';
+
+
+.table thead td, .table thead th {
+  color:$color--high-emphasis;
+  @include font-title--regular;
+  text-align: center !important;
+}
+.table tbody td, .table tbody th {
+  @include font-title--regular;
+  vertical-align: middle;
+}

@@ -1,0 +1,63 @@
+﻿@import '../variables/partials/fonts';
+@mixin primary-font {
+  font-family: $primary-font-family;
+  font-weight: 300;
+}
+@mixin secondary-font {
+  font-family: $primary-font-family;
+  font-weight: 400;
+}
+
+@mixin font-label {
+  font-size:0.889rem;
+  font-family: $primary-font-family;
+}
+@mixin font-title--big {
+  font-family: $primary-font-family;
+  font-size: 1.125rem;
+  font-weight:bold;
+}
+@mixin font-title--bigger {
+  font-family: $primary-font-family;
+  font-size: 1.266rem;
+  font-weight:bold;
+}
+
+
+@mixin font-description {
+  font-family: $primary-font-family;
+  font-size:0.889rem;
+  font-weight:400;
+}
+@mixin font-description--small {
+  font-family: $primary-font-family;
+  font-size:0.79rem;
+  font-weight:400;
+}
+
+@mixin font-title--small {
+  font-size:0.79rem;
+  font-family: $primary-font-family;
+  font-weight:bold;
+}
+
+@mixin font-title--regular {
+  font-family: $primary-font-family;
+  font-size:1rem;
+  font-weight:bold;
+}
+
+@mixin font-title--big {
+  font-family: $primary-font-family;
+  font-size: 1.125rem;
+  font-weight:bold;
+}
+
+
+@mixin font-message {
+  font-family: $primary-font-family;
+  word-spacing: 0px;
+  font-size: 0.889rem;
+  font-weight:400;
+  line-height: normal;
+}

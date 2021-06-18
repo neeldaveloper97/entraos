@@ -1,0 +1,35 @@
+# security for webserver is configured here (static content)
+security:
+  providers:
+  - mp-jwt-auth:
+
+openapi:
+  filter: no.entra.entraos.api.openapi.internal.SimpleAPIFilter
+  model:
+    reader: no.entra.entraos.api.openapi.internal.SimpleAPIModelReader
+
+app:
+    routes:
+        /api/template:
+            apply-subpaths: true
+            authenticate: false
+            authorize: false
+            roles: ["ADMIN"]
+            methods: ["OPTION", "POST", "GET", "DELETE", "PUT"]          
+        /api/user_role:
+            apply-subpaths: false
+            authenticate: true
+            authorize: false
+            methods: ["OPTION", "GET"]        
+        /api/person_company:
+            apply-subpaths: true
+            authenticate: true
+            authorize: false
+            methods: ["OPTION", "POST", "GET", "DELETE", "PUT"]
+            roles: ["ADMIN", "COMPANYADMIN"]
+        /api/person_contract:
+            apply-subpaths: true
+            authenticate: true
+            authorize: false
+            methods: ["OPTION", "POST", "GET", "DELETE", "PUT"]
+            roles: ["ADMIN", "COMPANYADMIN"]

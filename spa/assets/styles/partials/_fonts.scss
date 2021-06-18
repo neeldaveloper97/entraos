@@ -1,0 +1,46 @@
+@import '../variables/_variables.scss';
+@import '../_mixins.scss';
+
+
+
+
+.font--input-label {
+  @include font-label;
+  color: $color--medium-emphasis;
+  margin-bottom:0.5rem;
+  display:block;
+}
+
+.font--description{
+  @include font-description;
+  color:$color--medium-emphasis;
+}
+.font--title-regular{
+  @include font-title--regular;
+}
+.font--title-label {
+  @include font-title--regular;
+  color:$color--high-emphasis;
+  margin-bottom:1.5rem;
+  display:block;
+}
+.title-regular{
+  @include font-title--regular
+}
+.font--title-big {
+  @include font-title--big;
+}
+.font--title-bigger {
+  @include font-title--bigger;
+}
+.font--description-small {
+  @include font-description--small;
+}
+
+.font--title-small{
+  @include font-title--small;
+}
+
+.font--message{
+  @include font-message;
+}

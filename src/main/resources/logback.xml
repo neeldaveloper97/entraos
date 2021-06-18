@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <property name="LOGHOME" value="logs"/>
+    <property name="APPLICATION" value="contract-self-administration"/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+    
+     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+         <target>System.out</target>
+         <encoder>
+              <pattern>%d{dd.MM.yyyy HH:mm:ss} %-5level[%thread] %logger{0} - %msg%n
+            </pattern>
+         </encoder>
+     </appender>
+
+    <appender name="RF" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGHOME}/${APPLICATION}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGHOME}/${APPLICATION}-%d{dd.MM.yyyy}.%i.log</fileNamePattern>
+            <maxHistory>20</maxHistory>
+            <maxFileSize>20MB</maxFileSize>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd.MM.yyyy HH:mm:ss} %-5level[%thread] %logger{0} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOGSTASH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGHOME}/json/${APPLICATION}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>>${LOGHOME}/json/${APPLICATION}-%d{dd.MM.yyyy}.%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <maxFileSize>20MB</maxFileSize>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp/>
+                <message/>
+                <logLevel/>
+                <mdc/>
+                <nestedField>
+                    <fieldName>data</fieldName>
+                    <providers>
+                        <version/>
+                        <loggerName/>
+                        <threadName/>
+                        <arguments/>
+                        <callerData/>
+                        <stackTrace/>
+                        <context/>
+                        <tags/>
+                        <logstashMarkers/>
+                    </providers>
+                </nestedField>
+            </providers>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <!-- <appender-ref ref="LOGSTASH"/>  -->
+        <appender-ref ref="RF"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
